@@ -1,0 +1,127 @@
+/* контейнер */
+.counter-container {
+  display: flex;
+  width: 340px;
+   min-height: 200px;
+  padding: 25px;
+  border: 2px solid #444;
+  border-radius: 12px;
+  background: #1e1e1e;
+  height: fit-content;
+  gap: 15px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.4);
+  flex-direction: column;
+   justify-content: space-between;
+}
+
+.counter-max {
+  font-size: 30px; 
+  color: red !important;
+}
+
+.display {
+  font-size: 18px;
+}
+
+.display.value {
+  font-size: 25px;
+}
+
+/* светлая тема */
+.app.light .counter-container {
+  background: rgb(160, 180, 186);
+  border: 2px solid #444;
+}
+
+/* табло */
+.display {
+   font-size: 20px;
+  height: 70px;
+  background: black;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  text-align: center;
+  padding: 10px;
+}
+
+.app.light .display {
+  background: #faeded;
+  color: rgb(24, 23, 23);
+}
+
+/* ошибки */
+.error-text {
+  color: red;
+  font-size: 16px;
+  text-align: center;
+}
+
+.display.error-text {
+  font-size: 16px;
+}
+
+.display-text {
+  font-size: 16px;
+}
+/* кнопки */
+.buttons {
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  gap: 12px;
+    margin-top: 15px;
+}
+
+button {
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  background: #4caf50;
+  color: white;
+  cursor: pointer;
+  transition: 0.2s;
+}
+button:hover {
+  transform: scale(1.05);
+}
+
+button:disabled {
+  background: gray;
+}
+
+/* инпуты */
+.input-group {
+ display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+input {
+  width: 70%;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  margin-top: 5px;
+}
+
+/* ошибка инпута */
+.input-error {
+  border: 2px solid red;
+  background: #da7f7f;
+}
+
+.error-text {
+  font-size: 16px;
+  text-align: center;
+}
+
+.input-group label {
+  font-size: 18px;
+}
+
+.input-group input {
+  width: 200px;
+}

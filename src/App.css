@@ -1,0 +1,66 @@
+body {
+  margin: 0;
+  font-family: Arial;
+}
+
+/* темы */
+.app.dark {
+  background: #121212;
+  color: white;
+  min-height: 100vh;
+}
+
+.app.light {
+  background: #f5f5f5;
+  color: #222;
+  min-height: 100vh;
+}
+
+/* расположение */
+.app {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  padding-top: 100px;
+  align-items: stretch;
+}
+
+/* переключатель */
+.theme-switch {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* сам переключатель */
+.switch input {
+  display: none;
+}
+
+.switch {
+  width: 50px;
+  height: 26px;
+  background: #9ea9a5;
+  border-radius: 34px;
+  position: relative;
+  cursor: pointer;
+}
+
+.slider {
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  background:  #4ca3af;
+  border-radius: 50%;
+  top: 3px;
+  left: 4px;
+  transition: 0.3s;
+}
+
+.switch input:checked + .slider {
+  transform: translateX(24px);
+  background: #4ca3af;
+}
