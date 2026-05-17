@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
-import { Counter } from './Counter'
-import { Settings } from './Settings'
-import { getError } from './Logic'
+import { Counter } from './components/Counter'
+import { Settings } from './components/Settings'
+import { getError } from './components/Logic'
 import './App.css'
 import './Counter.css'
 
