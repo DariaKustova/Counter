@@ -1,36 +1,52 @@
 import type {ErrorType} from "./Logic";
 import "../Counter.css";
-import { Button } from "./Button";
+import {Button} from "./Button";
+import {useSelector, useDispatch} from "react-redux";
+import {type RootState} from "../app/types";
+import type {ChangeEvent} from "react";
+import {
+  changeMaxValueAC,
+  changeStartValueAC,
+  resetSettingsAC,
+  setValuesAC,
+} from "../state/counter-actions";
 
 type SettingsType = {
-  startValue: number;
-  maxValue: number;
-  setStartValue: (number: number) => void;
-  setMaxValue: (number: number) => void;
-  setValues: () => void;
   hasError: boolean;
   error: ErrorType;
-  resetSettings: () => void;
-  isSet: boolean;
 };
 
 // сообщение изначальное: enter values and press 'set'
 export const Settings = (props: SettingsType) => {
-  const {
-    startValue,
-    maxValue,
-    setStartValue,
-    setMaxValue,
-    setValues,
-    hasError,
-    error,
-    resetSettings,
-    isSet,
-  } = props;
+  const {hasError, error} = props;
 
-  // const isMaxError = isSet && (maxValue <= startValue || maxValue < 0) ? 'input-error' : ''
-  // const isStartError = isSet && (startValue < 0) ? 'input-error' : ''
+  const dispatch = useDispatch();
 
+  const startValue = useSelector(
+    (state: RootState) => state.counterState.startValue,
+  );
+  const maxValue = useSelector(
+    (state: RootState) => state.counterState.maxValue,
+  );
+
+  const isSet = useSelector((state: RootState) => state.counterState.isSet);
+
+  const handleMaxValueChange = (e: ChangeEvent<HTMLInputElement>) => {
+    dispatch(changeMaxValueAC(Number(e.currentTarget.value)));
+  };
+
+  const handleStartValueChange = (e: ChangeEvent<HTMLInputElement>) => {
+    dispatch(changeStartValueAC(Number(e.currentTarget.value)));
+  };
+
+  const handleSetValues = () => dispatch(setValuesAC());
+
+  const handleResetSettings = () => {
+    dispatch(resetSettingsAC());
+    localStorage.removeItem("startValue");
+    localStorage.removeItem("maxValue");
+  };
+  
   const isMaxError =
     error === "RANGE_ERROR" || error === "MAX_ERROR" ? "input-error" : "";
   const isStartError = error === "START_ERROR" ? "input-error" : "";
@@ -43,7 +59,7 @@ export const Settings = (props: SettingsType) => {
           className={isMaxError}
           type="number"
           value={maxValue}
-          onChange={(e) => setMaxValue(Number(e.currentTarget.value))}
+          onChange={handleMaxValueChange}
         />
       </div>
       <div className="input-group">
@@ -52,16 +68,14 @@ export const Settings = (props: SettingsType) => {
           className={isStartError}
           type="number"
           value={startValue}
-          onChange={(e) => {
-            setStartValue(Number(e.currentTarget.value));
-          }}
+          onChange={handleStartValueChange}
         />
       </div>
       <div className="buttons">
-        <Button title={"Set"} onClick={setValues} disabled={hasError} />
+        <Button title={"Set"} onClick={handleSetValues} disabled={hasError} />
         <Button
           title={"Reset Settings"}
-          onClick={resetSettings}
+          onClick={handleResetSettings}
           disabled={!!isSet && startValue === 0 && maxValue === 0}
         />
       </div>

@@ -1,20 +1,31 @@
 import "../Counter.css";
 import {Button} from "./Button";
-import { type ErrorType, getErrorText } from "./Logic";
-
+import {type ErrorType, getErrorText} from "./Logic";
+import {useSelector, useDispatch} from "react-redux";
+import {type RootState} from "../app/types";
+import { incrementCounterAC, resetCounterAC } from "../state/counter-actions";
 
 type CounterType = {
-  counter: number;
-  maxValue: number;
   error: ErrorType;
-  isSet: boolean;
-  maxNumber: () => void;
-  resetButton: () => void;
 };
 
 export function Counter(props: CounterType) {
-  const {counter, maxValue, error, isSet, maxNumber, resetButton} = props;
+  const {error} = props;
 
+  const dispatch = useDispatch();
+
+  const counter = useSelector((state: RootState) => state.counterState.counter);
+  const maxValue = useSelector(
+    (state: RootState) => state.counterState.maxValue,
+  );
+  const isSet = useSelector((state: RootState) => state.counterState.isSet);
+
+  const handleIncrement = () => {
+    dispatch(incrementCounterAC());
+  };
+  const handleReset = () => {
+    dispatch(resetCounterAC());
+  };
   const hasError = error !== null;
 
   const display = hasError
@@ -35,11 +46,11 @@ export function Counter(props: CounterType) {
       </div>
       <div className="buttons">
         <Button
-          title={"Start"}
-          onClick={maxNumber}
+          title={"Inc"}
+          onClick={handleIncrement}
           disabled={!isSet || counter >= maxValue}
         />
-        <Button title={"Reset"} onClick={resetButton} disabled={!isSet} />
+        <Button title={"Reset"} onClick={handleReset} disabled={!isSet} />
       </div>
     </div>
   );
